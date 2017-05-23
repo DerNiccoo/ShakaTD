@@ -74,5 +74,20 @@ namespace ShakaTD.Properties {
                 return ResourceManager.GetString("Level1", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 0000000000000000
+        ///S101110111011100
+        ///0101010101010100
+        ///0101010101010100
+        ///011101110111011Z
+        ///0000000000000000
+        ///0000000000000000 ähnelt.
+        /// </summary>
+        internal static string Level2 {
+            get {
+                return ResourceManager.GetString("Level2", resourceCulture);
+            }
+        }
     }
 }

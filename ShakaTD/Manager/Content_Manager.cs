@@ -35,6 +35,11 @@ namespace ShakaTD.Manager
             AddTexture("Grafiken/Tiles/Gras", "gras");
             AddTexture("Grafiken/Tiles/Sand", "sand");
 
+            AddTexture("Grafiken/Enemys/enemy1", "enemy1");
+            AddTexture("Grafiken/Enemys/enemy2", "enemy2");
+            AddTexture("Grafiken/Enemys/enemy3", "enemy3");
+            AddTexture("Grafiken/Enemys/enemy4", "enemy4");
+
             AddTexture("Grafiken/UI/BuyMenu", "buyMenu");
         }
 

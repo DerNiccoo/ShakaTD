@@ -8,7 +8,7 @@ namespace ShakaTD
 {
     public class Game1 : Game
     {
-        static int SCREEN_HEIGHT = 720, SCREEN_WIDTH = 1280;
+        public static int SCREEN_HEIGHT = 720, SCREEN_WIDTH = 1280;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Screen_Manager screenManager;
@@ -48,7 +48,10 @@ namespace ShakaTD
                 Exit();
 
             MouseState ms = Mouse.GetState();
-            Window.Title = "ShakuTD  --  Maus (" + ms.Position.X + " , " + ms.Position.Y + ")";
+
+            float fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            Window.Title = "ShakuTD  --  Maus (" + ms.Position.X + " , " + ms.Position.Y + ")  --  FPS: " + fps;
 
             screenManager.Update(gameTime);
 

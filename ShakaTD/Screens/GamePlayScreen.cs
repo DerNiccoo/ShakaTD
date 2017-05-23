@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
 using ShakaTD.Manager;
 
 namespace ShakaTD.Screens
@@ -12,7 +11,7 @@ namespace ShakaTD.Screens
 
         public GamePlayScreen() : base()
         {
-            game_Manager = new Game_Manager(1); //festlegen des levels
+            game_Manager = new Game_Manager(2); //festlegen des levels
         }
 
         public override void Update(GameTime gameTime)

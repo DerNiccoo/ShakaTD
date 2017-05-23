@@ -12,6 +12,9 @@ namespace ShakaTD.Components
         public int Width, Height;                       //Anzeige Weite //Höhe
         public bool activ;                              //Ob das Objekt noch aktuell ist, false = löschen
         public float deltaX, deltaY;                    //Bewegungsrichtung des Objektes
+        public int Weight;                              //Auf welcher Ebene das Obejtk gezeichnet werden soll. Klein = unten , hoch = oben
+        public Vector2 origin;                          //Ursprung wenn man etwas drehen möchte
+        public float rotation;                          //Der winkel zum Drehen. Gedrehte Objekte bisher nur in eigener Klasse Zeichnen
 
         public Game_Component()
         {
@@ -72,5 +75,6 @@ namespace ShakaTD.Components
         {
 
         }
+
     }
 }

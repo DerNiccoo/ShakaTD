@@ -18,6 +18,7 @@ namespace ShakaTD.Manager
         public void Update(GameTime gameTime)
         {
             level_Manager.Update(gameTime);
+            levelZeit += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Draw(SpriteBatch spriteBatch)

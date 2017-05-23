@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 using ShakaTD.Components;
-using ShakaTD.Components.Tiles;
 using ShakaTD.Levels;
+using ShakaTD.Components.Enemy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,26 +19,49 @@ namespace ShakaTD.Manager
 
         public int columnMax { get; private set; } //Wenn das Spiel irgendwann vll mal Scrollable in eine Richtung sein soll
 
+        private float levelRunMS;
+
         public Level_Manager(int LadeLevel)
         {
             level = new Level();
             components = new List<Game_Component>();
+            levelRunMS = 0;
             LoadLevel(LadeLevel);
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (Tile tile in components)
+            components.Sort((x, y) => x.Weight.CompareTo(y.Weight));        //Damit die wichtigeren Objekte oben liegen
+
+            foreach (Game_Component comp in components)
             {
-                tile.Update(gameTime);
+                comp.Update(gameTime);
             }
+
+            //Freigeben von Resorucen bzw einfach nur nicht das zu viele Objekte immer geupdatet/drawt werden
+            List<Game_Component> component_Copy = components;
+            for (int i = 0; i < components.Count; i++)
+            {
+                if (!components[i].activ)
+                    component_Copy.Remove(component_Copy[i]);
+            }
+            components = component_Copy;
+
+
+            levelRunMS += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (levelRunMS >= 500)
+            {
+                levelRunMS = 0;
+                components.Add(new Soldat(spawnPosition, level.map));
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Game_Component tile in components)
+            foreach (Game_Component comp in components)
             {
-                tile.Draw(spriteBatch);
+                comp.Draw(spriteBatch);
             }
         }
         

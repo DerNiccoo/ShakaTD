@@ -19,6 +19,7 @@ namespace ShakaTD.Levels
 
         public Vector2 spawnVec { get; private set; }
         public Vector2 goalVec { get; private set; }
+        public FieldType[,] map = new FieldType[16, 7];
 
         public void LoadLevel(string filename, ref List<Game_Component> tiles)
         {
@@ -47,6 +48,7 @@ namespace ShakaTD.Levels
                             break;
                     }
 
+                    map[column, row] = state;
                     tiles.Add(new Tile(tileVec, state));
 
                     column++;
