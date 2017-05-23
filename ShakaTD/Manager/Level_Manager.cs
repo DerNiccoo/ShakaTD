@@ -16,7 +16,7 @@ namespace ShakaTD.Manager
     {
         Level level;
 
-        public List<Tile> tileMap; //Vll eine Liste GameComponents machen, dann darein alles hinzufügen, könnte einiges einfacher machen
+        public List<Game_Component> components; //Vll eine Liste GameComponents machen, dann darein alles hinzufügen, könnte einiges einfacher machen
 
         public Vector2 spawnPosition { get; private set; }
         public Vector2 goalPosition { get; private set; }
@@ -26,13 +26,13 @@ namespace ShakaTD.Manager
         public Level_Manager(int LadeLevel)
         {
             level = new Level();
-            tileMap = new List<Tile>();
+            components = new List<Game_Component>();
             LoadLevel(LadeLevel);
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (Tile tile in tileMap)
+            foreach (Tile tile in components)
             {
                 tile.Update(gameTime);
             }
@@ -40,7 +40,7 @@ namespace ShakaTD.Manager
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Tile tile in tileMap)
+            foreach (Game_Component tile in components)
             {
                 tile.Draw(spriteBatch);
             }
@@ -50,11 +50,11 @@ namespace ShakaTD.Manager
         {
             try
             {
-                level.LoadLevel(@"Levels\Level" + LadeLevel + ".txt", ref tileMap);
+                level.LoadLevel(@"Levels\Level" + LadeLevel + ".txt", ref components);
             }
             catch
             {
-                level.LoadLevel(@"Levels\Level1.txt", ref tileMap);
+                level.LoadLevel(@"Levels\Level1.txt", ref components);
             }
             spawnPosition = level.spawnVec;
             goalPosition = level.goalVec;

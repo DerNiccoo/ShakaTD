@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShakaTD.Manager
 {
@@ -28,6 +23,8 @@ namespace ShakaTD.Manager
         public void Draw(SpriteBatch spriteBatch)
         {
             level_Manager.Draw(spriteBatch);
+            //Placeholder bis ich weiß wo das besser hin sollte
+            spriteBatch.Draw(Content_Manager.getInstance().Textures["buyMenu"], new Rectangle(0, 560, 1280, 160), Color.White);
         }
     }
 }

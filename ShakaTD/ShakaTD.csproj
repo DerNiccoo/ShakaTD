@@ -57,7 +57,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
-    <Compile Include="Components\GameComponent.cs" />
+    <Compile Include="Components\Game_Component.cs" />
     <Compile Include="Components\Tiles\Tile.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Levels\Level.cs" />

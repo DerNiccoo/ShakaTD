@@ -34,6 +34,8 @@ namespace ShakaTD.Manager
 
             AddTexture("Grafiken/Tiles/Gras", "gras");
             AddTexture("Grafiken/Tiles/Sand", "sand");
+
+            AddTexture("Grafiken/UI/BuyMenu", "buyMenu");
         }
 
         private void AddTexture(String file, String name = "")

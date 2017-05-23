@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using ShakaTD.Components;
 using ShakaTD.Components.Tiles;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -19,7 +20,7 @@ namespace ShakaTD.Levels
         public Vector2 spawnVec { get; private set; }
         public Vector2 goalVec { get; private set; }
 
-        public void LoadLevel(string filename, ref List<Tile> tiles)
+        public void LoadLevel(string filename, ref List<Game_Component> tiles)
         {
             string[] lines = File.ReadAllLines(filename);
 
