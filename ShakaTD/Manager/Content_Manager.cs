@@ -40,6 +40,20 @@ namespace ShakaTD.Manager
             AddTexture("Grafiken/Enemys/enemy3", "enemy3");
             AddTexture("Grafiken/Enemys/enemy4", "enemy4");
 
+            AddTexture("Grafiken/Tower/gun1", "gun1");
+            AddTexture("Grafiken/Tower/gun2", "gun2");
+            AddTexture("Grafiken/Tower/gunfire1", "gunfire1");
+            AddTexture("Grafiken/Tower/missle1", "missle1");
+            AddTexture("Grafiken/Tower/missle2", "missle2");
+            AddTexture("Grafiken/Tower/plattform1", "plattform1");
+            AddTexture("Grafiken/Tower/plattform2", "plattform2");
+            AddTexture("Grafiken/Tower/plattform3", "plattform3");
+            AddTexture("Grafiken/Tower/plattform4", "plattform4");
+            AddTexture("Grafiken/Tower/rocket1", "rocket1");
+            AddTexture("Grafiken/Tower/rocket2", "rocket2");
+            AddTexture("Grafiken/Tower/rocket3", "rocket3");
+            AddTexture("Grafiken/Tower/rocket4", "rocket4");
+
             AddTexture("Grafiken/UI/BuyMenu", "buyMenu");
         }
 

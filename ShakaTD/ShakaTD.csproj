@@ -61,6 +61,8 @@
     <Compile Include="Components\Enemys\Soldat.cs" />
     <Compile Include="Components\Game_Component.cs" />
     <Compile Include="Components\Tiles\Tile.cs" />
+    <Compile Include="Components\Tower\GunTower.cs" />
+    <Compile Include="Components\Tower\Tower.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Manager\Content_Manager.cs" />
@@ -98,9 +100,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Tower\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

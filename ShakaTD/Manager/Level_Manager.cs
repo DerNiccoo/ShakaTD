@@ -2,9 +2,11 @@
 
 using ShakaTD.Components;
 using ShakaTD.Levels;
-using ShakaTD.Components.Enemy;
+using ShakaTD.Components.Enemys;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShakaTD.Components.Tower;
+
 
 namespace ShakaTD.Manager
 {
@@ -25,13 +27,14 @@ namespace ShakaTD.Manager
         {
             level = new Level();
             components = new List<Game_Component>();
+            components.Add(new GunTower(new Vector2(4 * 80, 2 * 80)));
             levelRunMS = 0;
             LoadLevel(LadeLevel);
         }
 
         public void Update(GameTime gameTime)
         {
-            components.Sort((x, y) => x.Weight.CompareTo(y.Weight));        //Damit die wichtigeren Objekte oben liegen
+            components.Sort((x, y) => x.Weight.CompareTo(y.Weight));        //Damit die wichtigeren Objekte oben liegen vll. anders machen könnte lsitung fressen
 
             foreach (Game_Component comp in components)
             {

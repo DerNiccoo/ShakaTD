@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using ShakaTD.Components;
+using ShakaTD.Components.Tower;
+
 namespace ShakaTD.Manager
 {
     class Game_Manager
@@ -19,6 +22,18 @@ namespace ShakaTD.Manager
         {
             level_Manager.Update(gameTime);
             levelZeit += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            foreach (Game_Component comp in level_Manager.components)
+            {
+                if (comp is Tower)
+                {
+                    Tower currTower = (Tower)comp;
+                    if (currTower.hasTarget)
+                        continue;
+
+                    currTower.findNextTarget(level_Manager.components);
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -2,10 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using ShakaTD.Levels;
-using ShakaTD;
 using System;
 
-namespace ShakaTD.Components.Enemy
+namespace ShakaTD.Components.Enemys
 {
     enum Direction
     {
@@ -14,7 +13,7 @@ namespace ShakaTD.Components.Enemy
 
     class Enemy : Game_Component
     {
-        public int leben;
+        public float leben;
         public float speed;
         public int money;
         public Direction currentDirection, oldDirection;
@@ -26,13 +25,10 @@ namespace ShakaTD.Components.Enemy
 
         public Enemy(Vector2 spawn, FieldType[,] map) : base()
         {
-            this.map = map;                                                 //gefühlt waste of speicher
-            speed = 180;                                                    
+            this.map = map;                                                 //gefühlt waste of speicher                                                    
             Position = new Vector2(spawn.X - Level.BLOCKSIZE, spawn.Y);
             Height = Level.BLOCKSIZE;
             Width = Height;
-            leben = 50;
-            money = 10;
             Weight = 5;
             currentDirection = Direction.Right;
             oldDirection = currentDirection;
@@ -42,6 +38,9 @@ namespace ShakaTD.Components.Enemy
 
         public override void Update(GameTime gameTime)
         {
+            if (leben <= 0)
+                activ = false;
+
             float force = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             deltaX = 0;
