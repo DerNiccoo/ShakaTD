@@ -36,7 +36,6 @@ namespace ShakaTD.Components.Tower
         public static int cost;
         public Enemy currTarget;
         public Texture2D gunFire;
-        public Vector2 towerPos;
         public bool hasFired;
 
         public Tower(Vector2 spawn) : base()
