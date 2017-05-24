@@ -34,6 +34,7 @@ namespace ShakaTD
 
             Content_Manager.getInstance().LoadTextures(this.Content);
             Input_Manager.getInstance();
+            UI_Manager.getInstance();
             screenManager = new Screen_Manager(this);
             // TODO: use this.Content to load your game content here
         }

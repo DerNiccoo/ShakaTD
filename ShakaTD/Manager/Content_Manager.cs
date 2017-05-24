@@ -15,10 +15,12 @@ namespace ShakaTD.Manager
         ContentManager CM;
 
         public Dictionary<String, Texture2D> Textures;
+        public Dictionary<String, SpriteFont> Fonts;
 
         private Content_Manager()
         {
-            Textures = new Dictionary<string, Texture2D>();
+            Textures = new Dictionary<String, Texture2D>();
+            Fonts = new Dictionary<String, SpriteFont>();
         }
 
         public static Content_Manager getInstance()
@@ -53,8 +55,24 @@ namespace ShakaTD.Manager
             AddTexture("Grafiken/Tower/rocket2", "rocket2");
             AddTexture("Grafiken/Tower/rocket3", "rocket3");
             AddTexture("Grafiken/Tower/rocket4", "rocket4");
+            AddTexture("Grafiken/Tower/canPlace", "canPlace");
+            AddTexture("Grafiken/Tower/canNotPlace", "canNotPlace");
+            AddTexture("Grafiken/Tower/range", "range");
 
             AddTexture("Grafiken/UI/BuyMenu", "buyMenu");
+            AddTexture("Grafiken/UI/upgradeBtn", "upgradeBtn");
+            AddTexture("Grafiken/UI/sellBtn", "sellBtn");
+            AddTexture("Grafiken/UI/barBack_horizontalLeft", "barBackLeft");
+            AddTexture("Grafiken/UI/barBack_horizontalMid", "barBackMid");
+            AddTexture("Grafiken/UI/barBack_horizontalRight", "barBackRight");
+            AddTexture("Grafiken/UI/barGreen_horizontalLeft", "barGreenLeft");
+            AddTexture("Grafiken/UI/barGreen_horizontalMid", "barGreenMid");
+            AddTexture("Grafiken/UI/barGreen_horizontalRight", "barGreenRight");
+            AddTexture("Grafiken/UI/barYellow_horizontalLeft", "barYellowLeft");
+            AddTexture("Grafiken/UI/barYellow_horizontalMid", "barYellowMid");
+            AddTexture("Grafiken/UI/barYellow_horizontalRight", "barYellowRight");
+
+            AddFont("Fonts/towerInfo", "towerInfo");
         }
 
         private void AddTexture(String file, String name = "")
@@ -64,6 +82,15 @@ namespace ShakaTD.Manager
                 Textures.Add(file, newTexture);
             else
                 Textures.Add(name, newTexture);
+        }
+
+        private void AddFont(String file, String name = "")
+        {
+            SpriteFont newFont = CM.Load<SpriteFont>(file);
+            if (name == "")
+                Fonts.Add(file, newFont);
+            else
+                Fonts.Add(name, newFont);
         }
     }
 }

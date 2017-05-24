@@ -45,7 +45,13 @@ namespace ShakaTD.Manager
             for (int i = 0; i < components.Count; i++)
             {
                 if (!components[i].activ)
-                    component_Copy.Remove(component_Copy[i]);
+                {
+                    if (components[i] is Tower)
+                    {
+                        level.map[Toolbox.fixCoords(components[i].Position.X) / 80, Toolbox.fixCoords(components[i].Position.Y) / 80] = FieldType.Gras;
+                    }
+                    component_Copy.Remove(component_Copy[i]);                    
+                }
             }
             components = component_Copy;
 

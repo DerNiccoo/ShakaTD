@@ -63,6 +63,7 @@
     <Compile Include="Components\Tiles\Tile.cs" />
     <Compile Include="Components\Tower\GunTower.cs" />
     <Compile Include="Components\Tower\Tower.cs" />
+    <Compile Include="Components\Tower\TowerMenu.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Manager\Content_Manager.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Manager\Input_Manager.cs" />
     <Compile Include="Manager\Level_Manager.cs" />
     <Compile Include="Manager\Screen_Manager.cs" />
+    <Compile Include="Manager\UI_Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

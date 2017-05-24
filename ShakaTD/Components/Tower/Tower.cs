@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using ShakaTD.Levels;
-using Microsoft.Xna.Framework.Input;
+using ShakaTD.Manager;
 
 namespace ShakaTD.Components.Tower
 {
@@ -38,7 +38,13 @@ namespace ShakaTD.Components.Tower
         public Enemy currTarget;
         public Texture2D gunFire;
         public bool hasFired;
+
+        //Turm im Menü oder Bauen oder upgraden Vars
+        private TowerMenu towerMenu;
         public bool isBuyMenuTower;
+        public bool wantBuild;
+        public bool canBePlaced;
+        public bool activTower;
 
         public Tower(Vector2 spawn, bool buyMenu = false) : base()
         {
@@ -48,6 +54,7 @@ namespace ShakaTD.Components.Tower
             Weight = 6;
             Width = Level.BLOCKSIZE;
             Height = Level.BLOCKSIZE;
+            towerMenu = new TowerMenu();
         }
 
         public override void Update(GameTime gameTime)
@@ -83,9 +90,29 @@ namespace ShakaTD.Components.Tower
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (wantBuild || activTower) //hier müsste dann auch noch rein ODER activ weil das hier den Range Circel zeichnet
+            {
+                spriteBatch.Draw(Content_Manager.getInstance().Textures["range"],
+                    new Rectangle((int)Position.X - (int)(upgrades.range[upgradeLevel] * 80),
+                        (int)Position.Y - (int)(upgrades.range[upgradeLevel] * 80), (int)(upgrades.range[upgradeLevel] * 80 * 2 + 80), (int)(upgrades.range[upgradeLevel] * 80 * 2 + 80)), Color.White);
+
+                if (activTower)
+                    towerMenu.Draw(spriteBatch);
+            }
+
             spriteBatch.Draw(upgrades.texturePlatt[upgradeLevel], getRec, Color.White);
             spriteBatch.Draw(upgrades.textureGun[upgradeLevel], new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height), 
                 null, Color.White, rotation + (float)(Math.PI * 0.5), origin, SpriteEffects.None, 1);
+
+            if (wantBuild)
+            {
+                if (canBePlaced)
+                    spriteBatch.Draw(Content_Manager.getInstance().Textures["canPlace"],
+                        new Rectangle((int)Position.X, (int)Position.Y, Width, Height), Color.White);
+                else
+                    spriteBatch.Draw(Content_Manager.getInstance().Textures["canNotPlace"],
+                        new Rectangle((int)Position.X, (int)Position.Y, Width, Height), Color.White);
+            }
         }
 
         public void findNextTarget(List<Game_Component> comps)
@@ -122,6 +149,41 @@ namespace ShakaTD.Components.Tower
                                  (circleDistance_y - rect.Height / 2) ^ 2;
 
             return (cornerDistance_sq <= (circle_r ^ 2));
+        }
+
+        public void buildTower()
+        {
+            isBuyMenuTower = false;
+            wantBuild = false;
+            canBePlaced = false;
+            towerMenu.calculatePosition(Position);
+        }
+
+        public void towerClicked(Rectangle mousRec)
+        {
+            if (getRec.Intersects(mousRec))
+            {
+                Weight = 7;
+                activTower = true;
+            }
+            else
+            {
+                if (mousRec.Intersects(towerMenu.upgradePos) && upgradeLevel < upgradeLevelMax && activTower) //Hier müsste noch die Kohle verglichen werden
+                {
+                    upgradeLevel++;
+                    if (upgradeLevel == upgradeLevelMax)
+                        towerMenu.upgradeColor = Color.DarkRed;
+                }
+                else if (mousRec.Intersects(towerMenu.sellPos) && activTower)
+                {
+                    activ = false;
+                }
+                else
+                {
+                    Weight = 6;
+                    activTower = false;
+                }
+            }
         }
     }
 }

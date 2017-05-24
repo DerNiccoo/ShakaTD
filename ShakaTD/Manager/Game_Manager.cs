@@ -26,7 +26,10 @@ namespace ShakaTD.Manager
 
         public void Update(GameTime gameTime)
         {
+            bool LBtn = Input_Manager.getInstance().pressed.LBtn;
+            bool RBtn = Input_Manager.getInstance().pressed.RBtn;
             Vector2 msPos = Input_Manager.getInstance().mousePos;
+            UI_Manager.getInstance().tower = null;
 
             level_Manager.Update(gameTime);
             levelZeit += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -39,13 +42,21 @@ namespace ShakaTD.Manager
                     if (!currTower.hasTarget && !currTower.isBuyMenuTower)
                         currTower.findNextTarget(level_Manager.components);
 
-                    Rectangle mousRec = new Rectangle((int)msPos.X, (int)msPos.Y, 1, 1);
+                    Rectangle mouseRec = new Rectangle((int)msPos.X, (int)msPos.Y, 1, 1);
 
-                    if (Input_Manager.getInstance().pressed.LBtn && currTower.getRec.Intersects(mousRec) 
+                    if (currTower.isBuyMenuTower && currTower.getRec.Intersects(mouseRec))
+                    {
+                        UI_Manager.getInstance().tower = currTower;
+                    }
+
+                    if (LBtn && currTower.getRec.Intersects(mouseRec) 
                         && !buildMode && currTower.isBuyMenuTower)
                     {
                         buildMode = true;
                         buildTower = new GunTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
+                        buildTower.wantBuild = true;
+                        buildTower.Weight = 8; //Neuen Tower nach oben legen beim zeichnen.
+                        Input_Manager.getInstance().pressed.LBtn = false;
                     }
 
                     //Prüfen ob ein bereits plazierter Tower angeklickt wurde
@@ -53,42 +64,45 @@ namespace ShakaTD.Manager
                     if (!buildMode)
                     {
 
-                        if (Input_Manager.getInstance().pressed.LBtn && currTower.getRec.Intersects(mousRec))
+                        if (LBtn)
                         {
+                            currTower.towerClicked(mouseRec);
                             Input_Manager.getInstance().pressed.LBtn = false;
-                            currTower.upgradeLevel++;
-                            if (currTower.upgradeLevel > currTower.upgradeLevelMax)
-                                currTower.upgradeLevel = currTower.upgradeLevelMax;
                         }
-                        else if (Input_Manager.getInstance().pressed.RBtn && currTower.getRec.Intersects(mousRec))
+                        else if (RBtn)
                         {
                             Input_Manager.getInstance().pressed.RBtn = false;
-                            currTower.upgradeLevel--;
-                            if (currTower.upgradeLevel < 0)
-                                currTower.upgradeLevel = 0;
+                            currTower.activTower = false;
+                            currTower.Weight = 6;
                         }
                     }
+
+                    if (currTower.activTower)
+                        UI_Manager.getInstance().tower = currTower;
                 }
             }
 
             if (buildMode)
             {
+                UI_Manager.getInstance().tower = buildTower;
+                buildTower.canBePlaced = false;
                 buildTower.Position = new Vector2(Toolbox.fixCoords(msPos.X - 40), Toolbox.fixCoords(msPos.Y - 40));
-                if (Input_Manager.getInstance().pressed.LBtn)
+                try
                 {
-                    try
+                    if (level_Manager.level.map[(int)buildTower.Position.X / 80, (int)buildTower.Position.Y / 80] == Levels.FieldType.Gras)
                     {
-                        if (level_Manager.level.map[(int)buildTower.Position.X / 80, (int)buildTower.Position.Y / 80] == Levels.FieldType.Gras)
+                        if (Input_Manager.getInstance().pressed.LBtn)
                         {
-                            buildTower.isBuyMenuTower = false;
+                            buildTower.buildTower();
                             level_Manager.components.Add(buildTower);
                             buildMode = false;
                             level_Manager.level.map[(int)buildTower.Position.X / 80, (int)buildTower.Position.Y / 80] = Levels.FieldType.Tower;
+                            Input_Manager.getInstance().pressed.LBtn = false;
                         }
-                    } catch (Exception e) { }
-                    Input_Manager.getInstance().pressed.LBtn = false;
-                }
-                else if (Input_Manager.getInstance().pressed.RBtn)
+                        buildTower.canBePlaced = true;
+                    }
+                } catch (Exception e) { }
+                if (Input_Manager.getInstance().pressed.RBtn)
                 {
                     buildMode = false;
                     Input_Manager.getInstance().pressed.RBtn = false;
@@ -98,11 +112,12 @@ namespace ShakaTD.Manager
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //Placeholder bis ich weiß wo das besser hin sollte
+            //Placeholder bis ich weiß wo das besser hin sollte. Auch mal ein Besseres Menü bauen. Mit besseren, helleren Farben
             spriteBatch.Draw(Content_Manager.getInstance().Textures["buyMenu"], new Rectangle(0, 560, 1280, 160), Color.White);
             level_Manager.Draw(spriteBatch);
             if (buildMode)
                 buildTower.Draw(spriteBatch);
+            UI_Manager.getInstance().Draw(spriteBatch);
         }
     }
 }
