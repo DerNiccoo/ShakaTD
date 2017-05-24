@@ -33,6 +33,7 @@ namespace ShakaTD
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Content_Manager.getInstance().LoadTextures(this.Content);
+            Input_Manager.getInstance();
             screenManager = new Screen_Manager(this);
             // TODO: use this.Content to load your game content here
         }
@@ -47,6 +48,8 @@ namespace ShakaTD
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            Input_Manager.getInstance().Update(gameTime);
+
             MouseState ms = Mouse.GetState();
 
             float fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -54,6 +57,8 @@ namespace ShakaTD
             Window.Title = "ShakuTD  --  Maus (" + ms.Position.X + " , " + ms.Position.Y + ")  --  FPS: " + fps;
 
             screenManager.Update(gameTime);
+
+            Input_Manager.getInstance().pressed = new Pressed();
 
             base.Update(gameTime);
         }

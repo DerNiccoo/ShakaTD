@@ -9,7 +9,7 @@ namespace ShakaTD.Components.Tower
     class GunTower : Tower
     {
 
-        public GunTower(Vector2 spawn) : base(spawn)
+        public GunTower(Vector2 spawn, bool buyMenu = false) : base(spawn, buyMenu)
         {
             cost = 70;
             upgrades.damage = new float[3] { 1, 3, 8 };
@@ -20,6 +20,7 @@ namespace ShakaTD.Components.Tower
             upgrades.texturePlatt = new Texture2D[3] { Content_Manager.getInstance().Textures["plattform1"], Content_Manager.getInstance().Textures["plattform1"], Content_Manager.getInstance().Textures["plattform2"] };
             gunFire = Content_Manager.getInstance().Textures["gunfire1"];
             hasGunFire = true;
+            upgradeLevelMax = 2;
             origin = new Vector2(upgrades.textureGun[0].Width / 2, upgrades.textureGun[0].Height / 2);
         }
 

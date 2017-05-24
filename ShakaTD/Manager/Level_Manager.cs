@@ -12,7 +12,7 @@ namespace ShakaTD.Manager
 {
     class Level_Manager
     {
-        Level level;
+        public Level level;
 
         public List<Game_Component> components; //Vll eine Liste GameComponents machen, dann darein alles hinzufügen, könnte einiges einfacher machen
 
@@ -27,7 +27,6 @@ namespace ShakaTD.Manager
         {
             level = new Level();
             components = new List<Game_Component>();
-            components.Add(new GunTower(new Vector2(4 * 80, 2 * 80)));
             levelRunMS = 0;
             LoadLevel(LadeLevel);
         }

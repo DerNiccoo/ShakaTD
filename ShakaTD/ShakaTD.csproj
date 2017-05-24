@@ -67,6 +67,7 @@
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Manager\Content_Manager.cs" />
     <Compile Include="Manager\Game_Manager.cs" />
+    <Compile Include="Manager\Input_Manager.cs" />
     <Compile Include="Manager\Level_Manager.cs" />
     <Compile Include="Manager\Screen_Manager.cs" />
     <Compile Include="Program.cs" />
@@ -78,6 +79,7 @@
     </Compile>
     <Compile Include="Screens\GamePlayScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Toolbox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
