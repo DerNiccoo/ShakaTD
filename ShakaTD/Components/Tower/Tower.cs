@@ -32,15 +32,18 @@ namespace ShakaTD.Components.Tower
         public bool hasTarget;
         public bool hasGunFire;
         public int upgradeLevel;
+        public int upgradeLevelMax;
         public TowerUpgrades upgrades;
         public static int cost;
         public Enemy currTarget;
         public Texture2D gunFire;
         public Vector2 towerPos;
         public bool hasFired;
+        public bool isBuyMenuTower;
 
-        public Tower(Vector2 spawn) : base()
+        public Tower(Vector2 spawn, bool buyMenu = false) : base()
         {
+            isBuyMenuTower = buyMenu;
             Position = spawn;
             upgradeLevel = 0;
             Weight = 6;
@@ -50,6 +53,12 @@ namespace ShakaTD.Components.Tower
 
         public override void Update(GameTime gameTime)
         {
+            if (isBuyMenuTower)
+            {
+                base.Update(gameTime);
+                return;
+            }
+
             atkCD += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (atkCD >= 1000 * upgrades.speed[upgradeLevel] && hasTarget)
             {

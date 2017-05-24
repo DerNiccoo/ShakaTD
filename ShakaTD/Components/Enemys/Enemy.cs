@@ -82,8 +82,8 @@ namespace ShakaTD.Components.Enemys
 
         private void calculateWaypoint()
         {
-            int currX = fixCoords(Position.X) / Level.BLOCKSIZE;
-            int currY = fixCoords(Position.Y) / Level.BLOCKSIZE;
+            int currX = Toolbox.fixCoords(Position.X) / Level.BLOCKSIZE;
+            int currY = Toolbox.fixCoords(Position.Y) / Level.BLOCKSIZE;
             int forceX = 0, forceY = 0;
 
             if (currentDirection == Direction.Right)
@@ -115,8 +115,8 @@ namespace ShakaTD.Components.Enemys
 
         private void changeDirection()
         {
-            int currX = fixCoords(Position.X) / Level.BLOCKSIZE;
-            int currY = fixCoords(Position.Y) / Level.BLOCKSIZE;
+            int currX = Toolbox.fixCoords(Position.X) / Level.BLOCKSIZE;
+            int currY = Toolbox.fixCoords(Position.Y) / Level.BLOCKSIZE;
 
             if (currX + 1 <= 16 && map[currX + 1, currY] == FieldType.Path && oldDirection != Direction.Left)
             {
@@ -137,20 +137,6 @@ namespace ShakaTD.Components.Enemys
             
             oldDirection = currentDirection;
             calculateWaypoint();
-        }
-
-        private int fixCoords(float pos)
-        {
-            if (pos % Level.BLOCKSIZE >= Level.BLOCKSIZE / 2)
-            {
-                pos = pos - pos % Level.BLOCKSIZE + Level.BLOCKSIZE;
-            }
-            else
-            {
-                pos = pos - pos % Level.BLOCKSIZE;
-            }
-
-            return (int)pos;
         }
     }
 }

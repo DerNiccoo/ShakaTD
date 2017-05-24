@@ -9,7 +9,7 @@ namespace ShakaTD.Levels
 {
     enum FieldType
     {
-        Gras, Path
+        Gras, Path, Tower
     }
     class Level
     {
