@@ -6,10 +6,10 @@ using System;
 
 namespace ShakaTD.Manager
 {
+
     class Game_Manager
     {
-        Level_Manager level_Manager;
-
+        public Level_Manager level_Manager;
 
         private bool buildMode;
         private Tower buildTower;
@@ -20,8 +20,8 @@ namespace ShakaTD.Manager
         {
             level_Manager = new Level_Manager(currLevel);
             //Hinzufügen der Tower die gekauft werden können. Hier hin damit es abhängig vom Level sein kann.
-            level_Manager.components.Add(new GunTower(new Vector2(330, 580), true));
-            level_Manager.components.Add(new RocketTower(new Vector2(440, 580), true));
+            level_Manager.towers.Add(new GunTower(new Vector2(330, 580), true));
+            level_Manager.towers.Add(new RocketTower(new Vector2(440, 580), true));
             levelZeit = 0;
         }
 
@@ -33,57 +33,57 @@ namespace ShakaTD.Manager
             UI_Manager.getInstance().tower = null;
 
             level_Manager.Update(gameTime);
+            if (level_Manager.levelCompleted)
+                return;
             levelZeit += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            foreach (Game_Component comp in level_Manager.components)
+            foreach (Tower tower in level_Manager.towers)
             {
-                if (comp is Tower)
+                if (!tower.hasTarget && !tower.isBuyMenuTower)
+                    tower.findNextTarget(level_Manager.waves[level_Manager.currWave].enemys);
+
+                Rectangle mouseRec = new Rectangle((int)msPos.X, (int)msPos.Y, 1, 1);
+
+                if (tower.isBuyMenuTower && tower.getRec.Intersects(mouseRec))
                 {
-                    Tower currTower = (Tower)comp;
-                    if (!currTower.hasTarget && !currTower.isBuyMenuTower)
-                        currTower.findNextTarget(level_Manager.components);
+                    UI_Manager.getInstance().tower = tower;
+                }
 
-                    Rectangle mouseRec = new Rectangle((int)msPos.X, (int)msPos.Y, 1, 1);
+                if (LBtn && tower.getRec.Intersects(mouseRec) 
+                    && !buildMode && tower.isBuyMenuTower)
+                {
+                    buildMode = true;
+                    if (tower is GunTower)
+                        buildTower = new GunTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
+                    else if (tower is RocketTower)
+                        buildTower = new RocketTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
+                    buildTower.wantBuild = true;
+                    buildTower.Weight = 8; //Neuen Tower nach oben legen beim zeichnen.
+                    Input_Manager.getInstance().pressed.LBtn = false;
+                }
 
-                    if (currTower.isBuyMenuTower && currTower.getRec.Intersects(mouseRec))
+                //Prüfen ob ein bereits plazierter Tower angeklickt wurde
+                //Der Tower soll später das onCLick haben, hier wird es nur übergeben
+                if (!buildMode)
+                {
+                    if (LBtn)
                     {
-                        UI_Manager.getInstance().tower = currTower;
-                    }
-
-                    if (LBtn && currTower.getRec.Intersects(mouseRec) 
-                        && !buildMode && currTower.isBuyMenuTower)
-                    {
-                        buildMode = true;
-                        if (currTower is GunTower)
-                            buildTower = new GunTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
-                        else if (currTower is RocketTower)
-                            buildTower = new RocketTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
-                        buildTower.wantBuild = true;
-                        buildTower.Weight = 8; //Neuen Tower nach oben legen beim zeichnen.
+                        tower.towerClicked(mouseRec);
                         Input_Manager.getInstance().pressed.LBtn = false;
                     }
-
-                    //Prüfen ob ein bereits plazierter Tower angeklickt wurde
-                    //Der Tower soll später das onCLick haben, hier wird es nur übergeben
-                    if (!buildMode)
+                    else if (RBtn)
                     {
-
-                        if (LBtn)
-                        {
-                            currTower.towerClicked(mouseRec);
-                            Input_Manager.getInstance().pressed.LBtn = false;
-                        }
-                        else if (RBtn)
-                        {
-                            Input_Manager.getInstance().pressed.RBtn = false;
-                            currTower.activTower = false;
-                            currTower.Weight = 6;
-                        }
+                        Input_Manager.getInstance().pressed.RBtn = false;
+                        tower.activTower = false;
+                        tower.Weight = 6;
                     }
-
-                    if (currTower.activTower)
-                        UI_Manager.getInstance().tower = currTower;
                 }
+                else
+                    tower.activTower = false;
+
+                if (tower.activTower)
+                    UI_Manager.getInstance().tower = tower;
+                
             }
 
             if (buildMode)
@@ -98,7 +98,7 @@ namespace ShakaTD.Manager
                         if (Input_Manager.getInstance().pressed.LBtn)
                         {
                             buildTower.buildTower();
-                            level_Manager.components.Add(buildTower);
+                            level_Manager.towers.Add(buildTower);
                             buildMode = false;
                             level_Manager.level.map[(int)buildTower.Position.X / 80, (int)buildTower.Position.Y / 80] = Levels.FieldType.Tower;
                             Input_Manager.getInstance().pressed.LBtn = false;
@@ -120,7 +120,7 @@ namespace ShakaTD.Manager
             spriteBatch.Draw(Content_Manager.getInstance().Textures["buyMenu"], new Rectangle(0, 560, 1280, 160), Color.White);
             level_Manager.Draw(spriteBatch);
             if (buildMode)
-                buildTower.Draw(spriteBatch);
+                buildTower.DrawWithMenu(spriteBatch);
             UI_Manager.getInstance().Draw(spriteBatch);
         }
     }

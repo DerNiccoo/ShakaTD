@@ -6,6 +6,11 @@ using System;
 
 namespace ShakaTD.Components.Enemys
 {
+    enum Enemys
+    {
+        Soldat, Airplain
+    }
+
     enum Direction
     {
         Left, Right, Up, Down
@@ -74,7 +79,6 @@ namespace ShakaTD.Components.Enemys
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, getRec, Color.White);
             spriteBatch.Draw(Texture, new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height),
                     null, Color.White, rotation + (float)(Math.PI * 0.5), origin, SpriteEffects.None, 1);
             //Wenn die gegner später mal eine eigene Lebensanzeige bekommen sollten

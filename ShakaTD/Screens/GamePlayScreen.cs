@@ -11,12 +11,19 @@ namespace ShakaTD.Screens
 
         public GamePlayScreen() : base()
         {
-            game_Manager = new Game_Manager(2); //festlegen des levels
+            game_Manager = new Game_Manager(UI_Manager.getInstance().stats.currLevel); //festlegen des levels
         }
 
         public override void Update(GameTime gameTime)
         {
-            game_Manager.Update(gameTime);
+            if (!game_Manager.level_Manager.levelCompleted)
+                game_Manager.Update(gameTime);
+            else
+            {
+                NextScreen = AllScreens.Gameplay;
+                UI_Manager.getInstance().stats.currLevel++;
+                changeScreen = true;
+            }
             base.Update(gameTime);
         }
 

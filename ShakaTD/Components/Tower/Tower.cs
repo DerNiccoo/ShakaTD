@@ -43,7 +43,7 @@ namespace ShakaTD.Components.Tower
         public bool hasFired;
 
         //Turm im Menü oder Bauen oder upgraden Vars
-        private TowerMenu towerMenu;
+        public TowerMenu towerMenu;
         public bool isBuyMenuTower;
         public bool wantBuild;
         public bool canBePlaced;
@@ -77,7 +77,7 @@ namespace ShakaTD.Components.Tower
                 if (!hasMissile)
                     currTarget.leben -= upgrades.damage[upgradeLevel];
                 else
-                    missiles.Add(new Missile(upgrades.textureMissile[upgradeLevel], ref currTarget, Position, upgrades.speed[upgradeLevel], upgrades.damage[upgradeLevel]));
+                    missiles.Add(new Missile(upgrades.textureMissile[upgradeLevel], ref currTarget, Position, upgrades.damage[upgradeLevel], true));
             }
 
             if (hasTarget)
@@ -96,16 +96,6 @@ namespace ShakaTD.Components.Tower
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (wantBuild || activTower) //hier müsste dann auch noch rein ODER activ weil das hier den Range Circel zeichnet
-            {
-                spriteBatch.Draw(Content_Manager.getInstance().Textures["range"],
-                    new Rectangle((int)Position.X - (int)(upgrades.range[upgradeLevel] * 80),
-                        (int)Position.Y - (int)(upgrades.range[upgradeLevel] * 80), (int)(upgrades.range[upgradeLevel] * 80 * 2 + 80), (int)(upgrades.range[upgradeLevel] * 80 * 2 + 80)), Color.White);
-
-                if (activTower)
-                    towerMenu.Draw(spriteBatch);
-            }
-
             spriteBatch.Draw(upgrades.texturePlatt[upgradeLevel], getRec, Color.White);
             spriteBatch.Draw(upgrades.textureGun[upgradeLevel], new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height), 
                 null, Color.White, rotation + (float)(Math.PI * 0.5), origin, SpriteEffects.None, 1);
@@ -121,17 +111,25 @@ namespace ShakaTD.Components.Tower
             }
         }
 
-        public void findNextTarget(List<Game_Component> comps)
+        public void DrawWithMenu(SpriteBatch spriteBatch)
         {
-            foreach (Game_Component enemy in comps)
-            {
-                if (!(enemy is Enemy))
-                    continue;
+            spriteBatch.Draw(Content_Manager.getInstance().Textures["range"],
+               new Rectangle((int)Position.X - (int)(upgrades.range[upgradeLevel] * 80),
+               (int)Position.Y - (int)(upgrades.range[upgradeLevel] * 80), (int)(upgrades.range[upgradeLevel] * 80 * 2 + 80), (int)(upgrades.range[upgradeLevel] * 80 * 2 + 80)), Color.White);
 
-                Enemy target = (Enemy)enemy;
-                if (intersects(target.getRec))
+            if (activTower)
+                towerMenu.Draw(spriteBatch);
+
+            Draw(spriteBatch);
+        }
+
+        public void findNextTarget(List<Enemy> comps)
+        {
+            foreach (Enemy enemy in comps)
+            {
+                if (intersects(enemy.getRec))
                 {
-                    currTarget = target;
+                    currTarget = enemy;
                     hasTarget = true;
                     break;
                 }

@@ -57,6 +57,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Components\Enemys\Airplain.cs" />
     <Compile Include="Components\Enemys\Enemy.cs" />
     <Compile Include="Components\Enemys\Soldat.cs" />
     <Compile Include="Components\Game_Component.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Components\Tower\TowerMenu.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\Wave.cs" />
     <Compile Include="Manager\Content_Manager.cs" />
     <Compile Include="Manager\Game_Manager.cs" />
     <Compile Include="Manager\Input_Manager.cs" />
@@ -83,6 +85,7 @@
     </Compile>
     <Compile Include="Screens\GamePlayScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Screens\VictoryScreen.cs" />
     <Compile Include="Toolbox.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +102,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Levels\Level2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Levels\Waves.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

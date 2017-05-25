@@ -89,5 +89,14 @@ namespace ShakaTD.Properties {
                 return ResourceManager.GetString("Level2", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        internal static string Waves {
+            get {
+                return ResourceManager.GetString("Waves", resourceCulture);
+            }
+        }
     }
 }

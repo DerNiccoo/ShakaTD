@@ -41,6 +41,8 @@ namespace ShakaTD.Manager
             AddTexture("Grafiken/Enemys/enemy2", "enemy2");
             AddTexture("Grafiken/Enemys/enemy3", "enemy3");
             AddTexture("Grafiken/Enemys/enemy4", "enemy4");
+            AddTexture("Grafiken/Enemys/airplain1", "airplain1");
+            AddTexture("Grafiken/Enemys/airplain2", "airplain2");
 
             AddTexture("Grafiken/Tower/gun1", "gun1");
             AddTexture("Grafiken/Tower/gun2", "gun2");
@@ -58,6 +60,15 @@ namespace ShakaTD.Manager
             AddTexture("Grafiken/Tower/canPlace", "canPlace");
             AddTexture("Grafiken/Tower/canNotPlace", "canNotPlace");
             AddTexture("Grafiken/Tower/range", "range");
+            AddTexture("Grafiken/Tower/explosion0", "explosion0");
+            AddTexture("Grafiken/Tower/explosion1", "explosion1");
+            AddTexture("Grafiken/Tower/explosion2", "explosion2");
+            AddTexture("Grafiken/Tower/explosion3", "explosion3");
+            AddTexture("Grafiken/Tower/explosion4", "explosion4");
+            AddTexture("Grafiken/Tower/explosion5", "explosion5");
+            AddTexture("Grafiken/Tower/explosion6", "explosion6");
+            AddTexture("Grafiken/Tower/explosion7", "explosion7");
+            AddTexture("Grafiken/Tower/explosion8", "explosion8");
 
             AddTexture("Grafiken/UI/BuyMenu", "buyMenu");
             AddTexture("Grafiken/UI/upgradeBtn", "upgradeBtn");

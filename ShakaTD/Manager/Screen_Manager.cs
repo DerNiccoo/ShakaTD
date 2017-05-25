@@ -47,6 +47,7 @@ namespace ShakaTD.Manager
         private void createScreenList()
         {
             Screens.Add(AllScreens.Gameplay, new GamePlayScreen());
+            Screens.Add(AllScreens.Victory, new VictoryScreen());
         }
     }
 }

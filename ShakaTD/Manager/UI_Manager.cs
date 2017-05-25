@@ -6,15 +6,24 @@ using System.Collections.Generic;
 
 namespace ShakaTD.Manager
 {
+    struct Stats
+    {
+        public int currLevel;
+    }
+
     class UI_Manager
     {
         private static UI_Manager instance;
         private Dictionary<String, Texture2D> textures;
 
+        public Stats stats;
+
         public Tower tower;
 
         public UI_Manager()
         {
+            stats.currLevel = 1;
+
             textures = new Dictionary<String, Texture2D>();
             textures.Add("backL", Content_Manager.getInstance().Textures["barBackLeft"]);
             textures.Add("backM", Content_Manager.getInstance().Textures["barBackMid"]);

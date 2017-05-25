@@ -57,9 +57,6 @@ namespace ShakaTD.Components.Tower
             }
             else
                 if (atkCD >= 500) hasFired = false;
-
-            foreach (Missile missile in missiles)
-                missile.Draw(spriteBatch);
         }
     }
 }
