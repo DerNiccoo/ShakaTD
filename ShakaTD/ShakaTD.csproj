@@ -62,6 +62,8 @@
     <Compile Include="Components\Game_Component.cs" />
     <Compile Include="Components\Tiles\Tile.cs" />
     <Compile Include="Components\Tower\GunTower.cs" />
+    <Compile Include="Components\Tower\Missile.cs" />
+    <Compile Include="Components\Tower\RocketTower.cs" />
     <Compile Include="Components\Tower\Tower.cs" />
     <Compile Include="Components\Tower\TowerMenu.cs" />
     <Compile Include="Game1.cs" />

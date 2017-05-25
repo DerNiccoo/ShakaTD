@@ -16,10 +16,11 @@ namespace ShakaTD.Components.Tower
             upgrades.cost = new int[2] { 70, 100};
             upgrades.range = new float[3] { 1, 1.5f, 2.5f};
             upgrades.speed = new float[3] { 0.3f, 0.2f, 0.1f};
-            upgrades.textureGun = new Texture2D[3] {Content_Manager.getInstance().Textures["gun1"], Content_Manager.getInstance().Textures["gun1"] , Content_Manager.getInstance().Textures["gun2"] };
+            upgrades.textureGun = new Texture2D[3] {Content_Manager.getInstance().Textures["gun1"], Content_Manager.getInstance().Textures["gun2"] , Content_Manager.getInstance().Textures["gun3"] };
             upgrades.texturePlatt = new Texture2D[3] { Content_Manager.getInstance().Textures["plattform1"], Content_Manager.getInstance().Textures["plattform1"], Content_Manager.getInstance().Textures["plattform2"] };
             gunFire = Content_Manager.getInstance().Textures["gunfire1"];
             hasGunFire = true;
+            hasMissile = false;
             upgradeLevelMax = 2;
             origin = new Vector2(upgrades.textureGun[0].Width / 2, upgrades.textureGun[0].Height / 2);
         }

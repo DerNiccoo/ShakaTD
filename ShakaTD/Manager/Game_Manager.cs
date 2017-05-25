@@ -21,6 +21,7 @@ namespace ShakaTD.Manager
             level_Manager = new Level_Manager(currLevel);
             //Hinzufügen der Tower die gekauft werden können. Hier hin damit es abhängig vom Level sein kann.
             level_Manager.components.Add(new GunTower(new Vector2(330, 580), true));
+            level_Manager.components.Add(new RocketTower(new Vector2(440, 580), true));
             levelZeit = 0;
         }
 
@@ -53,7 +54,10 @@ namespace ShakaTD.Manager
                         && !buildMode && currTower.isBuyMenuTower)
                     {
                         buildMode = true;
-                        buildTower = new GunTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
+                        if (currTower is GunTower)
+                            buildTower = new GunTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
+                        else if (currTower is RocketTower)
+                            buildTower = new RocketTower(new Vector2(msPos.X - 40, msPos.Y - 40), true);
                         buildTower.wantBuild = true;
                         buildTower.Weight = 8; //Neuen Tower nach oben legen beim zeichnen.
                         Input_Manager.getInstance().pressed.LBtn = false;

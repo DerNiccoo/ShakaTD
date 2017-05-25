@@ -20,6 +20,7 @@ namespace ShakaTD.Components.Tower
         public float[] range;
         public Texture2D[] textureGun;
         public Texture2D[] texturePlatt;
+        public Texture2D[] textureMissile;
         public int[] cost;        
     }
     /// <summary>
@@ -31,6 +32,8 @@ namespace ShakaTD.Components.Tower
         public float atkCD;
         public bool hasTarget;
         public bool hasGunFire;
+        public bool hasMissile;
+        public List<Missile> missiles;
         public int upgradeLevel;
         public int upgradeLevelMax;
         public TowerUpgrades upgrades;
@@ -70,14 +73,17 @@ namespace ShakaTD.Components.Tower
             {
                 hasFired = true;
                 atkCD = 0;
-                currTarget.leben -= upgrades.damage[upgradeLevel];
-                if (currTarget.leben <= 0)
-                    hasTarget = false;
-                // IMMA FIRING MA LAZOR
+
+                if (!hasMissile)
+                    currTarget.leben -= upgrades.damage[upgradeLevel];
+                else
+                    missiles.Add(new Missile(upgrades.textureMissile[upgradeLevel], ref currTarget, Position, upgrades.speed[upgradeLevel], upgrades.damage[upgradeLevel]));
             }
 
             if (hasTarget)
             {
+                if (currTarget.leben <= 0)
+                    hasTarget = false;
                 Vector2 direction = currTarget.Position - Position;
                 rotation = (float)Math.Atan2(direction.Y, direction.X);
                 if (!intersects(currTarget.getRec))

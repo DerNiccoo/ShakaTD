@@ -11,11 +11,11 @@ namespace ShakaTD.Components.Enemys
     {
         public Soldat(Vector2 spawn, FieldType[,] map) : base(spawn, map)
         {
-            leben = 10;
+            leben = 100;
             money = 10;
-            speed = 180;
+            speed = 100;
             Texture = Content_Manager.getInstance().Textures["enemy1"];
-            origin = new Vector2(Width / 2, Height / 2);
+            origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
         }
 
         public override void Update(GameTime gameTime)

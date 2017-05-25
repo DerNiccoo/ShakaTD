@@ -57,7 +57,7 @@ namespace ShakaTD.Manager
 
 
             levelRunMS += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (levelRunMS >= 500)
+            if (levelRunMS >= 2000)
             {
                 levelRunMS = 0;
                 components.Add(new Soldat(spawnPosition, level.map));

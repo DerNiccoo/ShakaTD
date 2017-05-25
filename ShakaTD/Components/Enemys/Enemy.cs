@@ -32,7 +32,7 @@ namespace ShakaTD.Components.Enemys
             Weight = 5;
             currentDirection = Direction.Right;
             oldDirection = currentDirection;
-            rotation = 1;
+            rotation = -(float)Math.PI / 2;
             calculateWaypoint();
         }
 
@@ -75,7 +75,8 @@ namespace ShakaTD.Components.Enemys
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, getRec, Color.White);
-            //spriteBatch.Draw(Texture, getRec, null, Color.White, rotation + (float)(Math.PI * 0.5), origin, SpriteEffects.None, 1);
+            spriteBatch.Draw(Texture, new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height),
+                    null, Color.White, rotation + (float)(Math.PI * 0.5), origin, SpriteEffects.None, 1);
             //Wenn die gegner später mal eine eigene Lebensanzeige bekommen sollten
             //base.Draw(spriteBatch);
         }
@@ -121,18 +122,22 @@ namespace ShakaTD.Components.Enemys
             if (currX + 1 <= 16 && map[currX + 1, currY] == FieldType.Path && oldDirection != Direction.Left)
             {
                 currentDirection = Direction.Right;
+                rotation = -(float)Math.PI / 2;
             }
             else if (currY - 1 >= 0 && map[currX, currY - 1] == FieldType.Path && oldDirection != Direction.Down)
             {
                 currentDirection = Direction.Up;
+                rotation = (float)Math.PI;
             }
             else if (currY + 1 <= 7 && map[currX, currY + 1] == FieldType.Path && oldDirection != Direction.Up)
             {
                 currentDirection = Direction.Down;
+                rotation = 0;
             }
             else if (currX - 1 >= 0 && map[currX - 1, currY] == FieldType.Path && oldDirection != Direction.Right)
             {
                 currentDirection = Direction.Left;
+                rotation = (float)Math.PI / 2;
             }
             
             oldDirection = currentDirection;
