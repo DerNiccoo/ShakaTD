@@ -3,7 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using ShakaTD.Manager;
-
+/// <summary>
+/// Gegner sterben noch nicht. Also wenn sie durchlaufen. Könnte man beheben wenn man direkt alles
+/// mit einbaut. Die Struct in UI soll alle Daten speichern die irgendwie für dem Spieler von bedeutung sind
+/// </summary>
 namespace ShakaTD
 {
     public class Game1 : Game

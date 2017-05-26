@@ -42,8 +42,8 @@ namespace ShakaTD.Levels
             {
                 case 1:
                     rewardMoney = 70;
-                    maxEnemyCount = 5;
-                    waveInfo = new WavesInfo[5];
+                    maxEnemyCount = 10;
+                    waveInfo = new WavesInfo[10];
                     fillSameIntervall(2000);
                     fillSameType(Enemys.Soldat);
                     break;

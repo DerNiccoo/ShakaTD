@@ -26,7 +26,7 @@ namespace ShakaTD.Components.Tower
             Width = Level.BLOCKSIZE;
             Height = Width;
             target = currTarget;
-            baseSpeed = target.speed + 20;
+            baseSpeed = target.speed + 40;
             this.damage = damage;
             Position = pos;
             exploTexture = Content_Manager.getInstance().Textures["explosion" + Toolbox.GetRandom(0, 8)];
@@ -36,6 +36,7 @@ namespace ShakaTD.Components.Tower
 
         public override void Update(GameTime gameTime)
         {
+            baseSpeed *= 1.05f;
             if (explosion)
             {
                 showExplo += (float)gameTime.ElapsedGameTime.TotalMilliseconds;

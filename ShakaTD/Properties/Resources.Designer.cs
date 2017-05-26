@@ -91,6 +91,21 @@ namespace ShakaTD.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 0000000000000000
+        ///0000000001111100
+        ///0011111111000100
+        ///0010000000000100
+        ///S110000000000100
+        ///000000000000011Z
+        ///0000000000000000 ähnelt.
+        /// </summary>
+        internal static string Level3 {
+            get {
+                return ResourceManager.GetString("Level3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
         internal static string Waves {
