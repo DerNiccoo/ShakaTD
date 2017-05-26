@@ -8,7 +8,11 @@ namespace ShakaTD.Manager
 {
     struct Stats
     {
-        public int currLevel;
+        public int level;
+        public int leben;
+        public int wave;
+        public int money;
+        public int maxWave;
     }
 
     class UI_Manager
@@ -22,8 +26,6 @@ namespace ShakaTD.Manager
 
         public UI_Manager()
         {
-            stats.currLevel = 1;
-
             textures = new Dictionary<String, Texture2D>();
             textures.Add("backL", Content_Manager.getInstance().Textures["barBackLeft"]);
             textures.Add("backM", Content_Manager.getInstance().Textures["barBackMid"]);
@@ -34,6 +36,14 @@ namespace ShakaTD.Manager
             textures.Add("greenL", Content_Manager.getInstance().Textures["barGreenLeft"]);
             textures.Add("greenM", Content_Manager.getInstance().Textures["barGreenMid"]);
             textures.Add("greenR", Content_Manager.getInstance().Textures["barGreenRight"]);
+        }
+
+        public void Init()
+        {
+            stats.level = 0;
+            stats.leben = 20;
+            stats.wave = 1;
+            stats.maxWave = 1;
         }
 
         public static UI_Manager getInstance()
@@ -50,13 +60,18 @@ namespace ShakaTD.Manager
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (tower == null)
-                return;
+            if (tower != null)
+            {
+                //100, 590
+                DrawInfo(spriteBatch, tower.upgrades.damage, 0, "Damage");
+                DrawInfo(spriteBatch, tower.upgrades.speed, 1, "Speed");
+                DrawInfo(spriteBatch, tower.upgrades.range, 2, "Range");
+            }
 
-            //100, 590
-            DrawInfo(spriteBatch, tower.upgrades.damage, 0, "Damage");
-            DrawInfo(spriteBatch, tower.upgrades.speed, 1, "Speed");
-            DrawInfo(spriteBatch, tower.upgrades.range, 2, "Range");
+            spriteBatch.DrawString(Content_Manager.getInstance().Fonts["towerInfo"], "Leben: " + stats.leben, new Vector2(1000, 590), Color.Red);
+            spriteBatch.DrawString(Content_Manager.getInstance().Fonts["towerInfo"], "Level: " + stats.level, new Vector2(1000, 615), Color.Red);
+            spriteBatch.DrawString(Content_Manager.getInstance().Fonts["towerInfo"], "Wave: " + (stats.wave + 1) + " / " + stats.maxWave, new Vector2(1000, 640), Color.Red);
+            spriteBatch.DrawString(Content_Manager.getInstance().Fonts["towerInfo"], "Money: " + stats.money, new Vector2(1000, 665), Color.Red);
         }
 
         private void DrawInfo(SpriteBatch spriteBatch, float[] upgrade, int offset, string text)

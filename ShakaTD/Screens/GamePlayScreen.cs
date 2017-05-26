@@ -11,7 +11,8 @@ namespace ShakaTD.Screens
 
         public GamePlayScreen() : base()
         {
-            game_Manager = new Game_Manager(UI_Manager.getInstance().stats.currLevel); //festlegen des levels
+            UI_Manager.getInstance().Init();
+            game_Manager = new Game_Manager(UI_Manager.getInstance().stats.level); //festlegen des levels
         }
 
         public override void Update(GameTime gameTime)
@@ -21,7 +22,12 @@ namespace ShakaTD.Screens
             else
             {
                 NextScreen = AllScreens.Gameplay;
-                UI_Manager.getInstance().stats.currLevel++;
+                UI_Manager.getInstance().Init();    //Level ist noch verbuggt
+                changeScreen = true;
+            }
+            if (UI_Manager.getInstance().stats.leben <= 0)
+            {
+                NextScreen = AllScreens.Victory; // GameOver eig.
                 changeScreen = true;
             }
             base.Update(gameTime);

@@ -11,7 +11,8 @@ namespace ShakaTD.Components.Enemys
     {
         public Soldat(Vector2 spawn, FieldType[,] map) : base(spawn, map)
         {
-            leben = 100;
+            leben = 50;
+            schaden = 1;
             money = 10;
             speed = 100;
             Texture = Content_Manager.getInstance().Textures["enemy1"];

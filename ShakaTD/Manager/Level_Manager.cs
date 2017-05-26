@@ -49,8 +49,13 @@ namespace ShakaTD.Manager
                     return;
                 }
                 else
+                {
                     currWave++;
+                    UI_Manager.getInstance().stats.money += waves[currWave].rewardMoney;
+                }
+                    
             }
+            UI_Manager.getInstance().stats.wave = currWave;
 
             foreach (Tower tower in towers)
                 tower.Update(gameTime);
@@ -117,9 +122,11 @@ namespace ShakaTD.Manager
             {
                 waves.Add(new Wave(spawnPosition, level.map, 1));
                 waves.Add(new Wave(spawnPosition, level.map, 2));
+                UI_Manager.getInstance().stats.money = 70;
             }
             else if (LadeLevel == 2)
             {
+                UI_Manager.getInstance().stats.money = 100;
                 waves.Add(new Wave(spawnPosition, level.map, 1));
                 waves.Add(new Wave(spawnPosition, level.map, 2));
                 waves.Add(new Wave(spawnPosition, level.map, 3));
@@ -127,7 +134,10 @@ namespace ShakaTD.Manager
             else
             {
                 waves.Add(new Wave(spawnPosition, level.map, 1));
+                UI_Manager.getInstance().stats.money = 70;
             }
+            UI_Manager.getInstance().stats.maxWave = waves.Count;
+            UI_Manager.getInstance().stats.level = LadeLevel;
         }
     }
 }

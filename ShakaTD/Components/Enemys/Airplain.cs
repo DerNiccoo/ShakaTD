@@ -10,6 +10,7 @@ namespace ShakaTD.Components.Enemys
         public Airplain(Vector2 spawn, FieldType[,] map) : base (spawn, map)
         {
             leben = 200;
+            schaden = 5;
             money = 10;
             speed = 140;
             Texture = Content_Manager.getInstance().Textures["airplain1"];

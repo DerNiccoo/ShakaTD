@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using ShakaTD.Levels;
+using ShakaTD.Manager;
 using System;
 
 namespace ShakaTD.Components.Enemys
@@ -21,6 +22,7 @@ namespace ShakaTD.Components.Enemys
         public float leben;
         public float speed;
         public int money;
+        public int schaden;
         public Direction currentDirection, oldDirection;
         public FieldType[,] map;
 
@@ -34,6 +36,7 @@ namespace ShakaTD.Components.Enemys
             Position = new Vector2(spawn.X - Level.BLOCKSIZE, spawn.Y);
             Height = Level.BLOCKSIZE;
             Width = Height;
+            lastWaypoint = false;
             Weight = 5;
             currentDirection = Direction.Right;
             oldDirection = currentDirection;
@@ -44,7 +47,11 @@ namespace ShakaTD.Components.Enemys
         public override void Update(GameTime gameTime)
         {
             if (leben <= 0)
+            {
                 activ = false;
+                UI_Manager.getInstance().stats.money += money;
+            }
+                
 
             float force = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -65,13 +72,18 @@ namespace ShakaTD.Components.Enemys
                 {
                     changeDirection();
                 }
-                else
-                {
-                    if (Position.X >= Game1.SCREEN_WIDTH + 30 || Position.X <= -30 || Position.Y + Height <= -30 || Position.Y >= Game1.SCREEN_HEIGHT + 30)     //Gegner außerhalb des Spielfeldes
-                        activ = false;                                                                                                                          //Leben abziehen und res freigeben
-                }
             }
-                
+
+            if (lastWaypoint)
+            {    
+                if (Position.X >= Game1.SCREEN_WIDTH + 30 || Position.X <= -30 || Position.Y + Height <= -30 || Position.Y >= Game1.SCREEN_HEIGHT + 30)
+                {
+                    activ = false;
+                    //Leben abziehen und res freigeben
+                    UI_Manager.getInstance().stats.leben -= schaden;
+                }                
+            }
+
             Position = new Vector2(Position.X + deltaX, Position.Y + deltaY);
 
             base.Update(gameTime);
